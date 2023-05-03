@@ -41,7 +41,7 @@ CALL showProduk(5);
 DELIMITER $$
 CREATE PROCEDURE totalPesanan(id_pesanan int)
 BEGIN
-SELECT total FROM pesanan WHERE id = id_pesanan;
+SELECT pelanggan.id, pelanggan.kode,pelanggan.nama_pelanggan,SUM(pesanan_items.qty) as total_item,pesanan.total FROM pelanggan RIGHT JOIN pesanan ON pesanan.pelanggan_id = pelanggan.id LEFT JOIN pesanan_items ON pesanan_items.pesanan_id = pesanan.id GROUP BY pesanan.id;
 END $$
 DELIMITER ;
 CALL totalPesanan(1);
